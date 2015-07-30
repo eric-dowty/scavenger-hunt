@@ -12,6 +12,8 @@ RSpec.describe SubmissionsController, type: :controller do
   
   before(:each) do
     team.hunt_id = hunt.id
+    submission_2.team_id = team.id
+    team.submissions << submission_2
   end
   
   describe "POST#create" do
@@ -35,6 +37,28 @@ RSpec.describe SubmissionsController, type: :controller do
       expect(data.count).to eq(2)
       expect(data.first[:responded_to]).to be(false)
       expect(data.last[:responded_to]).to be(false)
+    end
+  end
+  
+  describe "PATCH#update" do
+    #I need help with this one, for some reason the correct won't update
+  xit "updates a submission" do
+      expect(submission_1.correct).to eq(false)
+      params = {submission_id: submission_1.id, correct: true}
+      put :update, :id => submission_1.id, format: :json, submission: params
+      
+      expect(submission_1.correct).to eq(true)
+    end
+  end
+  
+  describe "GET#latest_submission" do
+    it "gets the teams latest submission when responded to" do
+      params = { team_id: team.id }
+      get :latest_submission, format: :json, team_id: params
+      data = JSON.parse(response.body, symbolize_names: true)
+
+      expect(data[:responded_to]).to be(true)
+      expect(data[:correct]).to be(true)
     end
   end
 end
