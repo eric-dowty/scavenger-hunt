@@ -25,8 +25,7 @@ class Team < ActiveRecord::Base
   end
 
   def set_start_location
-    @number_of_locations ||= Location.length
-
-    self.location_id = (0...@number_of_locations).to_a.sample
+    @location_ids ||= Location.all.map(&:id)
+    self.update(location_id: @location_ids.sample)
   end
 end
