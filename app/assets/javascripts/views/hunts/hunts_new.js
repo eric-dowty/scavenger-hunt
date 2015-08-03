@@ -81,7 +81,7 @@ ScavengerHunt.Views.HuntsNew = Backbone.View.extend({
     },
       {
     wait: true,
-    success: function(xhr){new ScavengerHunt.Routers.Teams(numberOfTeams, xhr.id)},
+    success: function(){ScavengerHunt.Routers.Hunts()},
     error: function(){alert("Error when creating your hunt. Try again.")}
     }
   );

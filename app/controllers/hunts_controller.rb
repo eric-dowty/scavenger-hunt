@@ -4,6 +4,7 @@ class HuntsController < ApplicationController
   respond_to :json
 
   def index
+    binding.pry
     respond_with Hunt.current_hunt_data
   end
 

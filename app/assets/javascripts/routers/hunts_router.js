@@ -5,6 +5,7 @@ ScavengerHunt.Routers.Hunts = Backbone.Router.extend({
 
   dashboard: function() {
     view = new ScavengerHunt.Views.HuntsNew;
+    debugger    
     data = $.ajax({
               url: "/hunts",
               method: "get",
